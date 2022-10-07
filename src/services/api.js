@@ -13,10 +13,10 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
     const response = await request.json();
     return response;
   }
-  if (query) {
+  if (query || query === '') {
     const request = await fetch(ENDPOINTQUERY);
     const response = await request.json();
-    return response;
+    return response.results;
   }
 }
 
@@ -26,5 +26,3 @@ export async function getProductById(productId) {
   const response = await request.json();
   return response;
 }
-
-console.log(getCategories());
