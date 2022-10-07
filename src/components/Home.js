@@ -1,6 +1,9 @@
 import React from 'react';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import ProductCard from './ProductCard';
+import { Link } from 'react-router-dom';
+import { getCategories } from '../services/api';
+
 
 class Home extends React.Component {
   constructor() {
@@ -9,7 +12,12 @@ class Home extends React.Component {
       inputValue: '',
       listProducts: false,
       request: [],
+      category: [],
     };
+  }
+  
+    componentDidMount() {
+    this.imputCategory();
   }
 
   onSearch = (event) => {
@@ -25,13 +33,32 @@ class Home extends React.Component {
     this.setState({
       request,
       listProducts: true,
+     });
+  };
+
+  onInputChange = (event) => {
+    const { name, type, checked } = event.target;
+    const value = type === 'radio' ? checked : event.target.value;
+    this.setState({
+      [name]: value,
     });
   };
 
+  imputCategory = async () => {
+    const searchCategory = await getCategories();
+    console.log(searchCategory);
+    this.setState({
+      category: searchCategory,
+     });
+  };
+
+
   render() {
-    const { request, listProducts } = this.state;
+    const { request, listProducts, category  } = this.state;
     return (
       <>
+      <div>
+
         <h1
           data-testid="home-initial-message"
         >
@@ -45,6 +72,31 @@ class Home extends React.Component {
         </button>
         {!listProducts ? <p />
           : <ProductCard data={ request } />}
+          
+        <Link to="/shoppingcart" data-testid="shopping-cart-button">
+          <button type="button">
+            Carrinho de compras!
+          </button>
+        </Link>
+        <div>
+          <h2>Categorias</h2>
+          {category.map((element, index) => (
+            <div
+              key={ index }
+            >
+              <label htmlFor="categorias" data-testid="category">
+                <input
+                  type="radio"
+                  value={ element.name }
+                  onChange={ this.onInputChange }
+                />
+                {' '}
+                {element.name}
+              </label>
+            </div>
+          ))}
+        </div>
+      </div>
       </>
     );
   }
