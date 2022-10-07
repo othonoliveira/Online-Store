@@ -63,14 +63,6 @@ class Home extends React.Component {
             </div>
           ))}
         </div>
-        <div>
-
-          <h1
-            data-testid="home-initial-message"
-          >
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </h1>
-        </div>
       </div>
     );
   }
