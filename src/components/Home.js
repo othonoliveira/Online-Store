@@ -1,9 +1,7 @@
 import React from 'react';
-import { getProductsFromCategoryAndQuery } from '../services/api';
-import ProductCard from './ProductCard';
 import { Link } from 'react-router-dom';
-import { getCategories } from '../services/api';
-
+import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
+import ProductCard from './ProductCard';
 
 class Home extends React.Component {
   constructor() {
@@ -15,8 +13,8 @@ class Home extends React.Component {
       category: [],
     };
   }
-  
-    componentDidMount() {
+
+  componentDidMount() {
     this.imputCategory();
   }
 
@@ -33,7 +31,7 @@ class Home extends React.Component {
     this.setState({
       request,
       listProducts: true,
-     });
+    });
   };
 
   onInputChange = (event) => {
@@ -49,14 +47,12 @@ class Home extends React.Component {
     console.log(searchCategory);
     this.setState({
       category: searchCategory,
-     });
+    });
   };
 
-
   render() {
-    const { request, listProducts, category  } = this.state;
+    const { request, listProducts, category } = this.state;
     return (
-      <>
       <div>
 
         <h1
@@ -72,7 +68,7 @@ class Home extends React.Component {
         </button>
         {!listProducts ? <p />
           : <ProductCard data={ request } />}
-          
+
         <Link to="/shoppingcart" data-testid="shopping-cart-button">
           <button type="button">
             Carrinho de compras!
@@ -97,7 +93,6 @@ class Home extends React.Component {
           ))}
         </div>
       </div>
-      </>
     );
   }
 }
