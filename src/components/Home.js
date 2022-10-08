@@ -11,6 +11,8 @@ class Home extends React.Component {
       listProducts: false,
       request: [],
       category: [],
+      selectedCategory: false,
+      checked: '',
     };
   }
 
@@ -25,56 +27,57 @@ class Home extends React.Component {
   };
 
   handleButton = async () => {
+    const { checked } = this.state;
     const { inputValue } = this.state;
+    if (checked !== '') {
+      const radioCleaner = document.querySelector(`#${checked}`);
+      radioCleaner.checked = false;
+    }
     const request = await getProductsFromCategoryAndQuery(null, inputValue);
-    console.log(request);
     this.setState({
       request,
+      selectedCategory: false,
       listProducts: true,
     });
   };
 
-  onInputChange = (event) => {
-    const { name, type, checked } = event.target;
-    const value = type === 'radio' ? checked : event.target.value;
+  onInputChange = async (event) => {
+    const { id } = event.target;
+    const request = await getProductsFromCategoryAndQuery(id, undefined);
     this.setState({
-      [name]: value,
+      checked: id,
+      listProducts: false,
+      selectedCategory: true,
+      request,
     });
   };
 
   imputCategory = async () => {
     const searchCategory = await getCategories();
-    console.log(searchCategory);
     this.setState({
       category: searchCategory,
     });
   };
 
   render() {
-    const { request, listProducts, category } = this.state;
+    const { request, listProducts, category, selectedCategory } = this.state;
     return (
       <div>
-
         <h1
           data-testid="home-initial-message"
         >
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h1>
-
-        <input data-testid="query-input" onChange={ this.onSearch } />
-
-        <button type="button" onClick={ this.handleButton } data-testid="query-button">
-          Buscar
-        </button>
-        {!listProducts ? <p />
-          : <ProductCard data={ request } />}
-
-        <Link to="/shoppingcart" data-testid="shopping-cart-button">
-          <button type="button">
-            Carrinho de compras!
-          </button>
-        </Link>
         <div>
+          <input data-testid="query-input" onChange={ this.onSearch } />
+          <button type="button" onClick={ this.handleButton } data-testid="query-button">
+            Buscar
+          </button>
+          <Link to="/shoppingcart" data-testid="shopping-cart-button">
+            <button type="button">
+              Carrinho de compras!
+            </button>
+          </Link>
           <h2>Categorias</h2>
           {category.map((element, index) => (
             <div
@@ -82,6 +85,8 @@ class Home extends React.Component {
             >
               <label htmlFor="categorias" data-testid="category">
                 <input
+                  id={ element.id }
+                  name="category"
                   type="radio"
                   value={ element.name }
                   onChange={ this.onInputChange }
@@ -92,6 +97,11 @@ class Home extends React.Component {
             </div>
           ))}
         </div>
+        {!listProducts ? <p />
+          : <ProductCard data={ request } />}
+
+        {!selectedCategory ? <p />
+          : <ProductCard data={ request } />}
       </div>
     );
   }
