@@ -48,7 +48,7 @@ class Home extends React.Component {
       checked: id,
       listProducts: false,
       selectedCategory: true,
-      request,
+      request: request.results,
     });
   };
 
