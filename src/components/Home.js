@@ -17,7 +17,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    this.imputCategory();
+    this.inputCategory();
   }
 
   onSearch = (event) => {
@@ -52,7 +52,7 @@ class Home extends React.Component {
     });
   };
 
-  imputCategory = async () => {
+  inputCategory = async () => {
     const searchCategory = await getCategories();
     this.setState({
       category: searchCategory,
