@@ -97,9 +97,11 @@ class Home extends React.Component {
             </div>
           ))}
         </div>
-        {!listProducts && <ProductCard data={ request } />}
+        {!listProducts ? <p />
+          : <ProductCard data={ request } />}
 
-        {!selectedCategory && <ProductCard data={ request } />}
+        {!selectedCategory ? <p />
+          : <ProductCard data={ request } />}
       </div>
     );
   }
