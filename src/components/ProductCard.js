@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 class ProductCard extends React.Component {
   render() {
@@ -16,7 +16,8 @@ class ProductCard extends React.Component {
                 data-testid="product-add-to-cart"
                 type="button"
                 id={ index }
-                onClick={ handleCartButton(item) }
+                item={ item }
+                onClick={ handleCartButton }
               >
                 Adiciona Carrinho
 
