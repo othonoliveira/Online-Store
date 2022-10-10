@@ -67,7 +67,8 @@ class Home extends React.Component {
   };
 
   render() {
-    const { request, listProducts, category, selectedCategory } = this.state;
+    const { request,
+      listProducts, category, selectedCategory, cartProducts } = this.state;
     return (
       <div>
         <h1
@@ -81,11 +82,12 @@ class Home extends React.Component {
             Buscar
           </button>
           <Link
-            to="/shoppingcart"
-            data-testid="shopping-cart-button"
-            // cartProducts={ cartProducts }
+            to={ {
+              pathname: '/shoppingcart',
+              state: { cartProducts },
+            } }
           >
-            <button type="button">
+            <button data-testid="shopping-cart-button" type="button">
               Carrinho de compras!
             </button>
           </Link>
