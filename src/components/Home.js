@@ -13,6 +13,7 @@ class Home extends React.Component {
       category: [],
       selectedCategory: false,
       checked: '',
+      cartProducts: [],
     };
   }
 
@@ -52,6 +53,12 @@ class Home extends React.Component {
     });
   };
 
+  handleCartButton = (item) => {
+    this.setState((prev) => ({
+      cartProducts: [...prev.cartProducts, item],
+    }));
+  };
+
   inputCategory = async () => {
     const searchCategory = await getCategories();
     this.setState({
@@ -73,7 +80,11 @@ class Home extends React.Component {
           <button type="button" onClick={ this.handleButton } data-testid="query-button">
             Buscar
           </button>
-          <Link to="/shoppingcart" data-testid="shopping-cart-button">
+          <Link
+            to="/shoppingcart"
+            data-testid="shopping-cart-button"
+            // cartProducts={ cartProducts }
+          >
             <button type="button">
               Carrinho de compras!
             </button>
@@ -97,9 +108,11 @@ class Home extends React.Component {
             </div>
           ))}
         </div>
-        {!listProducts && <ProductCard data={ request } />}
+        {!listProducts ? <p />
+          : <ProductCard data={ request } handleCartButton={ this.handleCartButton } />}
 
-        {!selectedCategory && <ProductCard data={ request } />}
+        {!selectedCategory ? <p />
+          : <ProductCard data={ request } handleCartButton={ this.handleCartButton } />}
       </div>
     );
   }
