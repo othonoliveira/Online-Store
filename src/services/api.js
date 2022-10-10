@@ -11,7 +11,6 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
   if (categoryId || categoryId === '') {
     const request = await fetch(ENDPOINTCATEGORY);
     const response = await request.json();
-    console.log(response);
     return response;
   }
   if (query || query === '') {

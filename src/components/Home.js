@@ -83,7 +83,7 @@ class Home extends React.Component {
             <div
               key={ index }
             >
-              <label htmlFor="categorias" data-testid="category">
+              <label htmlFor={ element.id } data-testid="category">
                 <input
                   id={ element.id }
                   name="category"
@@ -97,11 +97,9 @@ class Home extends React.Component {
             </div>
           ))}
         </div>
-        {!listProducts ? <p />
-          : <ProductCard data={ request } />}
+        {!listProducts && <ProductCard data={ request } />}
 
-        {!selectedCategory ? <p />
-          : <ProductCard data={ request } />}
+        {!selectedCategory && <ProductCard data={ request } />}
       </div>
     );
   }
