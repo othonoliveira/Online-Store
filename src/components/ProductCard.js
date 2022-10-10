@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
   render() {
@@ -9,9 +10,16 @@ class ProductCard extends React.Component {
         {data.length === 0 ? <p>Nenhum produto foi encontrado</p>
           : data.map((item, index) => (
             <div data-testid="product" key={ index }>
-              <h1>{item.title}</h1>
+              <Link
+                to={ `/product/${item.id}` }
+                data-testid="product-detail-link"
+                onClick={ this.handleClick }
+              >
+                <h1>{item.title}</h1>
+              </Link>
               <img src={ item.thumbnail } alt="Imagem do Produto" />
               <h2>{`R$${item.price}`}</h2>
+
             </div>
           ))}
       </div>
@@ -25,5 +33,6 @@ ProductCard.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
   })).isRequired,
 };
