@@ -10,7 +10,7 @@ class ProductCard extends React.Component {
           : data.map((item, index) => (
             <div data-testid="product" key={ index }>
               <h1>{item.title}</h1>
-              <img src={ item.thumbnail } alt="Imagem do Produto" />
+              <img src={ item.thumbnail } alt="Imagem_do_Produto" />
               <h2>{`R$${item.price}`}</h2>
             </div>
           ))}
