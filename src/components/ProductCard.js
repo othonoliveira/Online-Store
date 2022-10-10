@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import React from 'react';
 
 class ProductCard extends React.Component {
@@ -9,7 +10,15 @@ class ProductCard extends React.Component {
         {data.length === 0 ? <p>Nenhum produto foi encontrado</p>
           : data.map((item, index) => (
             <div data-testid="product" key={ index }>
-              <h1>{item.title}</h1>
+              <Link
+                to={ {
+                  pathname: `/product/${item.id}`,
+                  state: handleCartButton,
+                } }
+                data-testid="product-detail-link"
+              >
+                <h1>{item.title}</h1>
+              </Link>
               <img src={ item.thumbnail } alt="Imagem do Produto" />
               <h2>{`R$${item.price}`}</h2>
               <button
@@ -19,7 +28,6 @@ class ProductCard extends React.Component {
                 onClick={ () => handleCartButton(item) }
               >
                 Adiciona Carrinho
-
               </button>
             </div>
           ))}
@@ -34,6 +42,7 @@ ProductCard.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
   })).isRequired,
   handleCartButton: PropTypes.func.isRequired,
 };

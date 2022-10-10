@@ -6,7 +6,6 @@ class ShoppingCart extends React.Component {
     const { location: { state: { cartProducts } } } = this.props;
     return (
       <div>
-        {console.log(typeof cartProducts)}
         {cartProducts.length === 0 ? (
           <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
         )
