@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class ProductCard extends React.Component {
   render() {
-    const { data } = this.props;
+    const { data, handleCartButton } = this.props;
     return (
       <div>
         {data.length === 0 ? <p>Nenhum produto foi encontrado</p>
@@ -12,6 +12,15 @@ class ProductCard extends React.Component {
               <h1>{item.title}</h1>
               <img src={ item.thumbnail } alt="Imagem do Produto" />
               <h2>{`R$${item.price}`}</h2>
+              <button
+                data-testid="product-add-to-cart"
+                type="button"
+                id={ index }
+                onClick={ handleCartButton(item) }
+              >
+                Adiciona Carrinho
+
+              </button>
             </div>
           ))}
       </div>
@@ -26,4 +35,5 @@ ProductCard.propTypes = {
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   })).isRequired,
+  handleCartButton: PropTypes.func.isRequired,
 };
