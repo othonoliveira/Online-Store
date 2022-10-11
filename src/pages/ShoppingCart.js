@@ -32,7 +32,6 @@ class ShoppingCart extends React.Component {
         [name]: prev[name] - 1,
       }));
     }
-    console.log(state);
   };
 
   addItem = (event) => {
