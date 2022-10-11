@@ -6,6 +6,7 @@ import { getProductById } from '../services/api';
 export default class ProductDetail extends Component {
   state = {
     response: {},
+    cartProducts: [],
   };
 
   async componentDidMount() {
@@ -14,9 +15,16 @@ export default class ProductDetail extends Component {
     this.setState({ response });
   }
 
+  handleCartButton = (item) => {
+    const { location: { state: { cartProducts } } } = this.props;
+    this.setState({ cartProducts });
+    this.setState((prev) => ({
+      cartProducts: [...prev.cartProducts, item],
+    }));
+  };
+
   render() {
-    const { response } = this.state;
-    const { location: { state: { handleCartButton, cartProducts } } } = this.props;
+    const { response, cartProducts } = this.state;
     return (
       <>
         <Link
@@ -44,7 +52,7 @@ export default class ProductDetail extends Component {
           <button
             type="button"
             data-testid="product-add-to-cart"
-            onClick={ () => handleCartButton(response) }
+            onClick={ () => this.handleCartButton(response, cartProducts) }
           >
             Add to Cart
           </button>
@@ -55,11 +63,19 @@ export default class ProductDetail extends Component {
 }
 
 ProductDetail.propTypes = {
-  cartProducts: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   location: PropTypes.shape().isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
   }).isRequired,
+  cartProducts: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  })),
+};
+
+ProductDetail.defaultProps = {
+  cartProducts: [],
 };

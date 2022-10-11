@@ -30,5 +30,9 @@ ShoppingCart.propTypes = {
     title: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-  })).isRequired,
+  })),
+};
+
+ShoppingCart.defaultProps = {
+  cartProducts: [],
 };

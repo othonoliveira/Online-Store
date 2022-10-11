@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
-import ProductCard from './ProductCard';
+import ProductCard from '../components/ProductCard';
 
 class Home extends React.Component {
   constructor() {

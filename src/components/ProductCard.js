@@ -13,7 +13,7 @@ class ProductCard extends React.Component {
               <Link
                 to={ {
                   pathname: `/product/${item.id}`,
-                  state: { handleCartButton, cartProducts },
+                  state: { cartProducts },
                 } }
                 data-testid="product-detail-link"
               >
@@ -39,11 +39,19 @@ class ProductCard extends React.Component {
 export default ProductCard;
 
 ProductCard.propTypes = {
-  cartProducts: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  cartProducts: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  })),
   data: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
   })).isRequired,
   handleCartButton: PropTypes.func.isRequired,
+};
+
+ProductCard.defaultProps = {
+  cartProducts: [],
 };
