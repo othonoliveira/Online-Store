@@ -4,7 +4,7 @@ import React from 'react';
 
 class ProductCard extends React.Component {
   render() {
-    const { data, handleCartButton } = this.props;
+    const { data, handleCartButton, cartProducts } = this.props;
     return (
       <div>
         {data.length === 0 ? <p>Nenhum produto foi encontrado</p>
@@ -13,7 +13,7 @@ class ProductCard extends React.Component {
               <Link
                 to={ {
                   pathname: `/product/${item.id}`,
-                  state: handleCartButton,
+                  state: { handleCartButton, cartProducts },
                 } }
                 data-testid="product-detail-link"
               >

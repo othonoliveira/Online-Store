@@ -1,46 +1,55 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductById } from '../services/api';
 
 export default class ProductDetail extends Component {
   state = {
-    product: {},
+    response: {},
   };
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const response = await getProductById(id);
-    this.setState({ product: response });
-    console.log(response);
+    this.setState({ response });
   }
 
   render() {
-    const { product } = this.state;
-    const { location: { state: { handleCartButton } } } = this.props;
+    const { response } = this.state;
+    const { location: { state: { handleCartButton, cartProducts } } } = this.props;
     return (
-      <section className="Detail">
+      <>
+        <Link
+          to={ {
+            pathname: '/shoppingcart',
+            state: { cartProducts },
+          } }
+        >
+          <button data-testid="shopping-cart-button" type="button">
+            Carrinho de compras!
+          </button>
+        </Link>
         <div>
           <h1 data-testid="product-detail-name">
-            {product.title}
+            {response.title}
           </h1>
           <img
             data-testid="product-detail-image"
-            src={ product.thumbnail }
-            alt={ product.title }
+            src={ response.thumbnail }
+            alt={ response.id }
           />
           <p data-testid="product-detail-price">
-            {`R$: ${product.price}
-            `}
+            {`R$: ${response.price}`}
           </p>
           <button
             type="button"
-            data-testid="shopping-cart-button"
-            onClick={ () => handleCartButton(product) }
+            data-testid="product-add-to-cart"
+            onClick={ () => handleCartButton(response) }
           >
             Add to Cart
           </button>
         </div>
-      </section>
+      </>
     );
   }
 }

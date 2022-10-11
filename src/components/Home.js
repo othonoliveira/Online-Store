@@ -111,10 +111,20 @@ class Home extends React.Component {
           ))}
         </div>
         {!listProducts ? <p />
-          : <ProductCard data={ request } handleCartButton={ this.handleCartButton } />}
+          : (
+            <ProductCard
+              data={ request }
+              cartProducts={ cartProducts }
+              handleCartButton={ this.handleCartButton }
+            />)}
 
         {!selectedCategory ? <p />
-          : <ProductCard data={ request } handleCartButton={ this.handleCartButton } />}
+          : (
+            <ProductCard
+              data={ request }
+              cartProducts={ cartProducts }
+              handleCartButton={ this.handleCartButton }
+            />)}
       </div>
     );
   }
