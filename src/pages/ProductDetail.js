@@ -11,13 +11,12 @@ export default class ProductDetail extends Component {
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
+    const { location: { state: { cartProducts } } } = this.props;
     const response = await getProductById(id);
-    this.setState({ response });
+    this.setState({ response, cartProducts });
   }
 
   handleCartButton = (item) => {
-    const { location: { state: { cartProducts } } } = this.props;
-    this.setState({ cartProducts });
     this.setState((prev) => ({
       cartProducts: [...prev.cartProducts, item],
     }));
@@ -51,8 +50,8 @@ export default class ProductDetail extends Component {
           </h2>
           <button
             type="button"
-            data-testid="product-add-to-cart"
-            onClick={ () => this.handleCartButton(response, cartProducts) }
+            data-testid="product-detail-add-to-cart"
+            onClick={ () => this.handleCartButton(response) }
           >
             Add to Cart
           </button>
