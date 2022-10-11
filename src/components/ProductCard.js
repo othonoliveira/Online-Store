@@ -18,9 +18,9 @@ class ProductCard extends React.Component {
                 data-testid="product-detail-link"
               >
                 <h1>{item.title}</h1>
+                <img src={ item.thumbnail } alt="Imagem do Produto" />
+                <h2>{`R$${item.price}`}</h2>
               </Link>
-              <img src={ item.thumbnail } alt="Imagem do Produto" />
-              <h2>{`R$${item.price}`}</h2>
               <button
                 data-testid="product-add-to-cart"
                 type="button"
@@ -39,6 +39,7 @@ class ProductCard extends React.Component {
 export default ProductCard;
 
 ProductCard.propTypes = {
+  cartProducts: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   data: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,

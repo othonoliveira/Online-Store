@@ -28,6 +28,7 @@ ShoppingCart.propTypes = {
   location: PropTypes.shape().isRequired,
   cartProducts: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   })).isRequired,
 };

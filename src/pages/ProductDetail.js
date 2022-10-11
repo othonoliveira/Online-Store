@@ -38,9 +38,9 @@ export default class ProductDetail extends Component {
             src={ response.thumbnail }
             alt={ response.id }
           />
-          <p data-testid="product-detail-price">
+          <h2 data-testid="product-detail-price">
             {`R$: ${response.price}`}
-          </p>
+          </h2>
           <button
             type="button"
             data-testid="product-add-to-cart"
@@ -55,13 +55,11 @@ export default class ProductDetail extends Component {
 }
 
 ProductDetail.propTypes = {
+  cartProducts: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   location: PropTypes.shape().isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
-  }).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func,
   }).isRequired,
 };
