@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 class ResumoCompra extends React.Component {
@@ -32,27 +32,21 @@ class ResumoCompra extends React.Component {
     const validarCep = cep.length >= 1;
     const validarEndereco = endereco.length >= 1;
     const validarPagamento = pagamento.length >= 1;
-    if (!validarNome || !validarEmail || !validaCpf
-        || !validarTelefone || !validarCep || !validarEndereco || !validarPagamento) {
-      <p data-testid="error-msg">
-            Campos inválidos
-      </p>;
+    const validacaoFinal = validarNome || validarEmail || validaCpf || validarTelefone
+      || validarCep || validarEndereco || validarPagamento;
+    if (!validacaoFinal) {
+      <p>Campos inválidos</p>;
     }
   };
 
   render() {
-    // const { shoppingCart } = this.props;
+    const { shoppingCart } = this.props;
     return (
       <div>
         <div>
           <h1>Resumo do Pedido</h1>
           <div><h2>Resumo Produtos</h2></div>
-          {/* {shoppingCart.map((element, index) => (
-            <div key={ index }>
-              <h1>{element.title}</h1>
-              <img src={ element.thumbnail } alt="Imagem do Produto" />
-            </div>
-          ))} */}
+          {console.log(shoppingCart)}
           <form>
             <label htmlFor="nome-completo">
               Nome Completo:
@@ -165,8 +159,14 @@ class ResumoCompra extends React.Component {
   }
 }
 
-// ResumoCompra.propTypes = {
-//   shoppingCart: PropTypes.arrayOf().isRequired,
-// };
+ResumoCompra.propTypes = {
+  shoppingCart: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  })) };
+ResumoCompra.defaultProps = {
+  shoppingCart: [],
+};
 
 export default ResumoCompra;

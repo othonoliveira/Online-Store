@@ -98,7 +98,9 @@ class ShoppingCart extends React.Component {
             </div>
           ))}
         <div>
-          <ResumoCompra />
+          <ResumoCompra
+            shoppingCart={ shoppingCart }
+          />
         </div>
         <div>
           <Link
