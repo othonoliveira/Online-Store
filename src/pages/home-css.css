@@ -25,9 +25,12 @@ div {
   flex-wrap: wrap;
   padding-top: 1rem;
   list-style: none;
-
 }
 
 #categoria-titulo {
   text-align: center;
+}
+
+.lista-categoria input {
+  display: none;
 }

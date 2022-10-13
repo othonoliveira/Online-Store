@@ -101,6 +101,7 @@ class Home extends React.Component {
           <hr />
           {category.map((element, index) => (
             <div
+              className="lista-categoria"
               key={ index }
             >
               <label htmlFor={ element.id } data-testid="category">
